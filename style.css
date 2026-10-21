@@ -1,0 +1,58 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Hiragino Sans", "Yu Gothic", sans-serif;
+  background: #f5f7fa;
+}
+
+.top-search-bar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid #dfe6ee;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  max-width: 700px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #d7dfe8;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.search-icon {
+  padding: 0 12px 0 16px;
+  font-size: 1.1rem;
+  color: #61748a;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 14px 8px;
+  font-size: 1rem;
+  background: transparent;
+}
+
+.search-button {
+  border: none;
+  background: #1f6feb;
+  color: white;
+  padding: 14px 20px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background: #1759c6;
+}
