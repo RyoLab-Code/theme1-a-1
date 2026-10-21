@@ -15,16 +15,48 @@
         <div class="school-main">京田辺キャンパス</div>
       </div>
 
-      <div class="search-wrap">
+      <form class="search-wrap" id="search-form" role="search">
+        <label class="sr-only" for="search">建物検索</label>
         <input id="search" type="text" placeholder="検索したい建物の名前" />
-      </div>
+        <button type="submit">検索</button>
+      </form>
     </header>
 
     <main class="content">
       <h1>同志社学内MAP</h1>
+      <p class="lead">建物名を入力すると、候補を絞り込んで確認できます。</p>
 
-      <div class="campus-image">
-        <img src="京田辺キャンパス.jpg" alt="京田辺キャンパスの画像" />
+      <div class="campus-layout">
+        <figure class="campus-image">
+          <img src="京田辺キャンパス.jpg" alt="京田辺キャンパスの画像" />
+        </figure>
+
+        <section class="building-panel" aria-label="主要施設一覧">
+          <h2>主要施設</h2>
+          <p class="search-status" id="search-status" aria-live="polite">キーワードを入力すると候補を絞り込めます。</p>
+          <ul class="building-list" id="building-list">
+            <li data-name="知真館" data-keywords="知真館 図書館 学習 ラーニングコモンズ">
+              <span class="building-name">知真館</span>
+              <span>図書館・ラーニングコモンズ</span>
+            </li>
+            <li data-name="恵道館" data-keywords="恵道館 教室 講義">
+              <span class="building-name">恵道館</span>
+              <span>講義室エリア</span>
+            </li>
+            <li data-name="ローム記念館" data-keywords="ローム記念館 ホール イベント">
+              <span class="building-name">ローム記念館</span>
+              <span>ホール・イベント会場</span>
+            </li>
+            <li data-name="友和館" data-keywords="友和館 食堂 学生支援">
+              <span class="building-name">友和館</span>
+              <span>学生支援・食堂</span>
+            </li>
+            <li data-name="紫苑館" data-keywords="紫苑館 体育館 クラブ">
+              <span class="building-name">紫苑館</span>
+              <span>体育施設</span>
+            </li>
+          </ul>
+        </section>
       </div>
     </main>
 
