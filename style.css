@@ -1,49 +1,60 @@
 :root {
-  --bg: #f3f6ef;
-  --bg-accent: #e6efe0;
-  --surface: #ffffff;
-  --line: #d5dfcf;
-  --text: #1f2a2a;
-  --muted: #607070;
-  --primary: #0f5e3f;
-  --primary-soft: #d9ebdf;
+  --bg: #f4f0e6;
+  --bg-2: #e8f1dc;
+  --paper: #fffdfa;
+  --line: #d6cfbf;
+  --ink: #2c2925;
+  --muted: #6a6458;
+  --brand: #1e5d42;
+  --brand-strong: #15442f;
+  --highlight: #e9f5de;
+  --shadow: 0 16px 34px rgba(0, 0, 0, 0.1);
 }
 
 * {
   box-sizing: border-box;
 }
 
+html,
+body {
+  min-height: 100%;
+}
+
 body {
   margin: 0;
-  color: var(--text);
-  font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Segoe UI", sans-serif;
+  color: var(--ink);
+  font-family: "BIZ UDPGothic", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  line-height: 1.5;
   background:
-    radial-gradient(circle at 90% 5%, var(--bg-accent) 0%, transparent 42%),
-    radial-gradient(circle at 5% 10%, #e8f1f0 0%, transparent 34%),
-    var(--bg);
+    radial-gradient(1200px 500px at 85% -5%, #dcecc9 0%, transparent 65%),
+    radial-gradient(800px 360px at -5% 10%, #e8efe4 0%, transparent 60%),
+    linear-gradient(180deg, #f6f3ea 0%, var(--bg) 100%);
 }
 
 .top-header {
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 20;
   display: grid;
-  grid-template-columns: auto 1fr minmax(280px, 420px);
-  gap: 14px;
+  grid-template-columns: auto 1fr minmax(280px, 440px);
+  gap: 16px;
   align-items: center;
-  padding: 14px clamp(12px, 4vw, 32px);
-  background: rgba(255, 255, 255, 0.94);
-  border-bottom: 1px solid var(--line);
-  backdrop-filter: blur(6px);
+  padding: 14px clamp(14px, 4vw, 36px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  background: linear-gradient(120deg, rgba(31, 58, 44, 0.92), rgba(40, 81, 60, 0.9));
+  color: #f5f7f1;
+  box-shadow: 0 6px 20px rgba(17, 36, 26, 0.24);
+  backdrop-filter: blur(8px);
 }
 
 .logo-box {
-  padding: 8px 12px;
-  border-radius: 10px;
-  color: #fff;
+  padding: 9px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 12px;
+  font-size: 0.98rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  background: linear-gradient(140deg, #0f5e3f, #25724d);
+  letter-spacing: 0.16em;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .school-name {
@@ -51,82 +62,98 @@ body {
 }
 
 .school-sub {
-  color: var(--muted);
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.82;
 }
 
 .school-main {
   margin-top: 2px;
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  font-weight: 700;
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: 0.06em;
 }
 
 .search-wrap {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
   gap: 8px;
-  align-items: center;
 }
 
 .search-wrap input {
-  flex: 1;
+  width: 100%;
   min-width: 0;
-  padding: 10px 12px;
-  border: 1px solid var(--line);
+  padding: 11px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 999px;
+  color: #f6faf4;
   font-size: 0.95rem;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.search-wrap input::placeholder {
+  color: rgba(246, 250, 244, 0.82);
 }
 
 .search-wrap input:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(15, 94, 63, 0.16);
   outline: none;
+  border-color: #f0ffd9;
+  box-shadow: 0 0 0 3px rgba(220, 255, 167, 0.23);
 }
 
 .search-wrap button {
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 999px;
-  padding: 10px 16px;
+  padding: 11px 16px;
+  color: #173628;
+  background: #eef8d5;
   font-weight: 700;
-  color: #fff;
-  background: var(--primary);
   cursor: pointer;
+  transition: transform 0.22s ease, background-color 0.22s ease;
 }
 
 .search-wrap button:hover {
-  background: #0c4d34;
+  background: #dff0ba;
+  transform: translateY(-1px);
 }
 
 .content {
-  width: min(1100px, 92vw);
-  margin: 32px auto 52px;
+  width: min(1120px, 92vw);
+  margin: 34px auto 56px;
 }
 
 h1 {
   margin: 0;
-  font-size: clamp(1.8rem, 4.4vw, 2.8rem);
-  line-height: 1.2;
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-size: clamp(2rem, 4.4vw, 3rem);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  line-height: 1.18;
 }
 
 .lead {
-  margin: 10px 0 22px;
+  margin: 10px 0 24px;
   color: var(--muted);
+  font-size: clamp(0.95rem, 2vw, 1.03rem);
 }
 
 .campus-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
-  gap: 20px;
+  grid-template-columns: minmax(0, 1fr) minmax(270px, 350px);
+  gap: 22px;
   align-items: start;
 }
 
 .campus-image {
   margin: 0;
-  border-radius: 16px;
   border: 1px solid var(--line);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  border-radius: 18px;
+  background: var(--paper);
+  box-shadow: var(--shadow);
   overflow: hidden;
+  animation: rise-in 0.65s ease both;
 }
 
 .campus-image img {
@@ -137,21 +164,25 @@ h1 {
 
 .building-panel {
   border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 16px;
-  background: var(--surface);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+  border-radius: 18px;
+  padding: 18px;
+  background:
+    linear-gradient(170deg, rgba(255, 255, 255, 0.95), rgba(250, 247, 240, 0.95)),
+    var(--paper);
+  box-shadow: var(--shadow);
+  animation: rise-in 0.75s ease 0.06s both;
 }
 
 .building-panel h2 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.14rem;
+  letter-spacing: 0.03em;
 }
 
 .search-status {
-  margin: 8px 0 14px;
-  font-size: 0.92rem;
+  margin: 9px 0 14px;
   color: var(--muted);
+  font-size: 0.92rem;
 }
 
 .building-list {
@@ -164,16 +195,22 @@ h1 {
 
 .building-list li {
   display: grid;
-  gap: 4px;
-  padding: 10px 12px;
+  gap: 3px;
+  padding: 11px 12px;
   border: 1px solid var(--line);
-  border-radius: 10px;
-  background: #fdfefe;
+  border-radius: 11px;
+  background: #fffefc;
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.building-list li:hover {
+  transform: translateX(2px);
+  border-color: #b9c6a7;
 }
 
 .building-list li.matched {
-  border-color: var(--primary);
-  background: var(--primary-soft);
+  border-color: #9ab97f;
+  background: var(--highlight);
 }
 
 .building-name {
@@ -191,12 +228,50 @@ h1 {
   border: 0;
 }
 
-@media (max-width: 900px) {
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 980px) {
   .top-header {
     grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .school-main {
+    font-size: 1.08rem;
   }
 
   .campus-layout {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .search-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .search-wrap button {
+    width: 100%;
+  }
+
+  .content {
+    margin-top: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
   }
 }
