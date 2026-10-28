@@ -58,12 +58,59 @@ document.addEventListener("DOMContentLoaded", () => {
     return visibleCount === 1 ? lastMatched : null;
   };
 
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    applyFilter();
+  const search = (word) => {
+    input.value = word;
+    const only = applyFilter();
+    if (only) {
+      selectBuilding(only);
+    } else {
+      clearSelection();
+    }
+  };
+
+  // ---- 地図に場所を表示 ----
+  const clearSelection = () => {
+    buildings.forEach((item) => item.classList.remove("selected"));
+    marker.hidden = true;
+  };
+
+  const selectBuilding = (item) => {
+    clearSelection();
+    item.classList.add("selected");
+    marker.style.left = `${item.dataset.x}%`;
+    marker.style.top = `${item.dataset.y}%`;
+    marker.textContent = item.dataset.no;
+    marker.hidden = false;
+    marker.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    status.textContent = `${item.dataset.no} ${item.dataset.name} の場所を地図に表示しています。`;
+  };
+
+  buildings.forEach((item) => {
+    item.tabIndex = 0;
+    item.addEventListener("click", () => selectBuilding(item));
+    item.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        selectBuilding(item);
+      }
+    });
   });
 
-  input.addEventListener("input", applyFilter);
+  // ---- イベント ----
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    search(input.value);
+  });
+
+  input.addEventListener("input", () => {
+    applyFilter();
+    clearSelection();
+  });
+
+  document.querySelectorAll(".chip").forEach((chip) => {
+    chip.addEventListener("click", () => search(chip.dataset.word));
+  });
+
+  document.getElementById("blocked").addEventListener("click", () => search("工事"));
 
   applyFilter();
 });
