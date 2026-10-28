@@ -8,11 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  // 全角・半角、カタカナ・ひらがなの違いをそろえる（「コンビニ」でも「こんびに」でも見つかるように）
   const normalize = (value) =>
     value
       .normalize("NFKC")
       .trim()
       .toLowerCase()
+      .replace(/[ァ-ヶ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0x60))
       .replace(/\s+/g, " ");
 
   const compact = (value) => value.replace(/\s+/g, "");
@@ -21,16 +23,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const keyword = normalize(input.value);
     const compactKeyword = compact(keyword);
     let visibleCount = 0;
+    let lastMatched = null;
 
     buildings.forEach((item) => {
-      const name = normalize(item.dataset.name || "");
-      const keywords = normalize(item.dataset.keywords || "");
-      const searchable = `${name} ${keywords}`;
+      const no = item.dataset.no || "";
+      // 建物名・読み方・施設名（画面に出ている文字）をまとめて検索の対象にする
+      const searchable = normalize(`${item.dataset.name} ${item.dataset.keywords} ${item.textContent}`);
       const compactSearchable = compact(searchable);
       const matched =
         !keyword ||
-        searchable.includes(keyword) ||
-        compactSearchable.includes(compactKeyword);
+        keyword === no ||
+        (!/^\d+$/.test(keyword) && (searchable.includes(keyword) || compactSearchable.includes(compactKeyword)));
 
       item.hidden = !matched;
       item.classList.toggle("matched", matched && keyword.length > 0);
@@ -50,7 +53,9 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    status.textContent = `「${input.value.trim()}」に一致する施設: ${visibleCount}件`;
+    status.textContent = `「${input.value.trim()}」に一致する建物: ${visibleCount}件（押すと地図に場所が出ます）`;
+    // 1件だけのときは、その建物を返す
+    return visibleCount === 1 ? lastMatched : null;
   };
 
   form.addEventListener("submit", (event) => {
