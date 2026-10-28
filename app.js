@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("search");
   const status = document.getElementById("search-status");
   const buildings = Array.from(document.querySelectorAll("#building-list li"));
+  const marker = document.getElementById("map-marker");
+  const mapScroll = document.getElementById("map-scroll");
+  const mapInner = document.getElementById("map-inner");
 
   if (!form || !input || !status || buildings.length === 0) {
     return;
