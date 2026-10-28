@@ -22,55 +22,211 @@
       </form>
     </header>
 
-    <main class="content">
+   <main class="content">
       <h1>同志社学内MAP</h1>
-      <p class="lead">建物名を入力すると、候補を絞り込んで確認できます。</p>
+      <p class="lead">建物名・番号・施設名（食堂、コンビニなど）で検索すると、建物の場所と中にある施設を確認できます</p>
 
+
+ <div class="quick-search" aria-label="よく探されるもの">
+        <span class="quick-label">よく探されるもの</span>
+        <button type="button" class="chip" data-word="食堂">食堂</button>
+        <button type="button" class="chip" data-word="コンビニ">コンビニ</button>
+        <button type="button" class="chip" data-word="図書館">図書館</button>
+        <button type="button" class="chip" data-word="保健">保健センター</button>
+        <button type="button" class="chip" data-word="パソコン">パソコン</button>
+        <button id="blocked" type="button" class="blocked-btn">工事・通行止め</button>
+      </div>
 
       <div class="campus-layout">
         <figure class="campus-image">
-          <img src="京田辺キャンパス.jpg" alt="京田辺キャンパスの画像" />
+          <div class="map-scroll" id="map-scroll">
+            <div class="map-inner" id="map-inner">
+              <img src="京田辺キャンパス.jpg" alt="京田辺キャンパスの地図。建物に番号が付いている" />
+              <div class="map-marker" id="map-marker" hidden></div>
+            </div>
+          </div>
+
+          <div class="map-controls" aria-label="地図操作">
+            <button id="zi" type="button" aria-label="拡大">+</button>
+            <button id="zo" type="button" aria-label="縮小">−</button>
+            <button id="vw" type="button" aria-label="全体表示">↗↙</button>
+          </div>
+
+          <figcaption>出典：同志社大学 京田辺校地キャンパスマップ（2026年4月時点）</figcaption>
         </figure>
 
-        <section class="building-panel" aria-label="主要施設一覧">
-          <h2>主要施設</h2>
+        <section class="building-panel" aria-label="建物一覧">
+          <h2>建物一覧</h2>
           <p class="search-status" id="search-status" aria-live="polite">キーワードを入力すると候補を絞り込めます。</p>
           <ul class="building-list" id="building-list">
-            <li data-name="知真館" data-keywords="知真館 図書館 学習 ラーニングコモンズ">
-              <span class="building-name">知真館</span>
-              <span>図書館・ラーニングコモンズ</span>
+            <li data-no="1" data-name="真誠館" data-keywords="しんせいかん" data-x="47.5" data-y="13.1">
+              <span class="building-name"><span class="no">1</span>真誠館</span>
+              <span class="building-info">体育関係の練習場</span>
             </li>
-            <li data-name="恵道館" data-keywords="恵道館 教室 講義">
-              <span class="building-name">恵道館</span>
-              <span>講義室エリア</span>
+            <li data-no="2" data-name="京田辺体育ハウス1" data-keywords="きょうたなべたいいくはうす" data-x="51.0" data-y="15.4">
+              <span class="building-name"><span class="no">2</span>京田辺体育ハウス1</span>
             </li>
-            <li data-name="ローム記念館" data-keywords="ローム記念館 ホール イベント">
-              <span class="building-name">ローム記念館</span>
-              <span>ホール・イベント会場</span>
+            <li data-no="3" data-name="京田辺体育ハウス2" data-keywords="きょうたなべたいいくはうす" data-x="54.0" data-y="17.3">
+              <span class="building-name"><span class="no">3</span>京田辺体育ハウス2</span>
             </li>
-            <li data-name="友和館" data-keywords="友和館 食堂 学生支援">
-              <span class="building-name">友和館</span>
-              <span>学生支援・食堂</span>
+            <li data-no="4" data-name="体育系ボックス棟" data-keywords="たいいくけいぼっくすとう 部室 クラブ" data-x="56.5" data-y="19.7">
+              <span class="building-name"><span class="no">4</span>体育系ボックス棟</span>
             </li>
-            <li data-name="紫苑館" data-keywords="紫苑館 体育館 クラブ">
-              <span class="building-name">紫苑館</span>
-              <span>体育施設</span>
+            <li data-no="5" data-name="磐上館" data-keywords="ばんじょうかん" data-x="58.3" data-y="21.4">
+              <span class="building-name"><span class="no">5</span>磐上館</span>
+              <span class="building-info">スポーツ健康科学部・研究科事務室、講師控室</span>
+            </li>
+            <li data-no="6" data-name="デイヴィス記念館" data-keywords="でいゔぃすきねんかん 体育館" data-x="48.5" data-y="24.2">
+              <span class="building-name"><span class="no">6</span>デイヴィス記念館</span>
+              <span class="building-info">体育館兼講堂</span>
+            </li>
+            <li data-no="7" data-name="デイヴィス記念多目的コート" data-keywords="でいゔぃすきねんたもくてきこーと 工事 通行止め" data-x="55.8" data-y="24.8">
+              <span class="building-name"><span class="no">7</span>デイヴィス記念多目的コート</span>
+              <span class="tag closed">改修工事中</span>
+            </li>
+            <li data-no="8" data-name="山本覚馬記念アリーナ" data-keywords="やまもとかくまきねんありーな 体育館" data-x="48.5" data-y="28.3">
+              <span class="building-name"><span class="no">8</span>山本覚馬記念アリーナ</span>
+            </li>
+            <li data-no="9" data-name="恵喜館" data-keywords="けいきかん" data-x="45.9" data-y="36.9">
+              <span class="building-name"><span class="no">9</span>恵喜館</span>
+            </li>
+            <li data-no="10" data-name="光喜館" data-keywords="こうきかん" data-x="41.3" data-y="40.0">
+              <span class="building-name"><span class="no">10</span>光喜館</span>
+            </li>
+            <li data-no="11" data-name="訪知館" data-keywords="ほうちかん" data-x="48.2" data-y="38.5">
+              <span class="building-name"><span class="no">11</span>訪知館</span>
+              <span class="building-info">脳科学研究科事務室</span>
+            </li>
+            <li data-no="12" data-name="紫苑館" data-keywords="しおんかん 学食 ご飯 昼ごはん" data-x="42.6" data-y="45.2">
+              <span class="building-name"><span class="no">12</span>紫苑館</span>
+              <span class="building-info">食堂</span>
+            </li>
+            <li data-no="13" data-name="成心館" data-keywords="せいしんかん 相談" data-x="41.0" data-y="49.4">
+              <span class="building-name"><span class="no">13</span>成心館</span>
+              <span class="building-info">学生支援センター、スチューデントダイバーシティ・アクセシビリティ支援センター</span>
+            </li>
+            <li data-no="14" data-name="多目的ホール" data-keywords="たもくてきほーる 工事 通行止め" data-x="47.2" data-y="53.0">
+              <span class="building-name"><span class="no">14</span>多目的ホール</span>
+              <span class="tag closed">改修工事中（周りの道は狭いが通れる）</span>
+            </li>
+            <li data-no="15" data-name="日糧館" data-keywords="にちりょうかん 学食 ご飯 昼ごはん 購買 本屋 就活 工事 通行止め" data-x="38.9" data-y="54.8">
+              <span class="building-name"><span class="no">15</span>日糧館</span>
+              <span class="building-info">キャリアセンター、食堂、おいしんボ横丁、書籍・購買店舗、旅行カウンター、コンビニ、学生ラウンジ</span>
+              <span class="tag warn">南側の道が通行止め（16側か空中通路から入る）</span>
+            </li>
+            <li data-no="16" data-name="知真館3号館" data-keywords="ちしんかん" data-x="34.7" data-y="52.8">
+              <span class="building-name"><span class="no">16</span>知真館3号館</span>
+              <span class="building-info">講師控室</span>
+            </li>
+            <li data-no="17" data-name="京田辺別館" data-keywords="きょうたなべべっかん 部室 サークル" data-x="18.4" data-y="73.3">
+              <span class="building-name"><span class="no">17</span>京田辺別館</span>
+              <span class="building-info">文化系クラブ・サークルBOX、音楽・演劇総合練習場、学生ラウンジ</span>
+            </li>
+            <li data-no="18" data-name="知真館2号館" data-keywords="ちしんかん" data-x="28.7" data-y="71.3">
+              <span class="building-name"><span class="no">18</span>知真館2号館</span>
+              <span class="building-info">歴史資料館</span>
+            </li>
+            <li data-no="19" data-name="保健センター" data-keywords="ほけんせんたー けが 病院 体調" data-x="26.5" data-y="80.8">
+              <span class="building-name"><span class="no">19</span>保健センター</span>
+            </li>
+            <li data-no="20" data-name="知真館1号館" data-keywords="ちしんかん 相談" data-x="36.2" data-y="69.6">
+              <span class="building-name"><span class="no">20</span>知真館1号館</span>
+              <span class="building-info">カウンセリングセンター</span>
+            </li>
+            <li data-no="21" data-name="嗣業館" data-keywords="しぎょうかん 教務 履修 留学" data-x="40.0" data-y="83.6">
+              <span class="building-name"><span class="no">21</span>嗣業館</span>
+              <span class="building-info">京田辺キャンパス教務センター（2026年夏期に成心館1階へ移転予定）、国際センター</span>
+            </li>
+            <li data-no="22" data-name="交隣館" data-keywords="こうりんかん" data-x="43.7" data-y="83.6">
+              <span class="building-name"><span class="no">22</span>交隣館</span>
+              <span class="building-info">講師控室、教員ラウンジ、共同研究室</span>
+            </li>
+            <li data-no="23" data-name="新島記念講堂" data-keywords="にいじまきねんこうどう 講堂 式典" data-x="61.1" data-y="87.7">
+              <span class="building-name"><span class="no">23</span>新島記念講堂</span>
+            </li>
+            <li data-no="24" data-name="同志社ローム記念館" data-keywords="どうししゃろーむきねんかん" data-x="58.7" data-y="78.4">
+              <span class="building-name"><span class="no">24</span>同志社ローム記念館</span>
+              <span class="building-info">リサーチ・イノベーション推進機構、プロジェクトルーム、カフェ</span>
+            </li>
+            <li data-no="25" data-name="情報メディア館" data-keywords="じょうほうめでぃあかん パソコン PC" data-x="66.4" data-y="82.7">
+              <span class="building-name"><span class="no">25</span>情報メディア館</span>
+              <span class="building-info">情報教室、ITサポートオフィス</span>
+            </li>
+            <li data-no="26" data-name="夢告館" data-keywords="むこくかん" data-x="54.6" data-y="73.4">
+              <span class="building-name"><span class="no">26</span>夢告館</span>
+              <span class="building-info">文化情報学部・研究科事務室</span>
+            </li>
+            <li data-no="27" data-name="知証館北館" data-keywords="ちしょうかん" data-x="67.3" data-y="73.3">
+              <span class="building-name"><span class="no">27</span>知証館北館</span>
+              <span class="building-info">機械系実験実習棟、機械実習工場</span>
+            </li>
+            <li data-no="28" data-name="知証館南館" data-keywords="ちしょうかん" data-x="62.6" data-y="70.6">
+              <span class="building-name"><span class="no">28</span>知証館南館</span>
+              <span class="building-info">自然系等実験実習棟、電気系実験実習棟</span>
+            </li>
+            <li data-no="29" data-name="言館" data-keywords="ことばかん チャペル" data-x="51.3" data-y="67.9">
+              <span class="building-name"><span class="no">29</span>言館</span>
+              <span class="building-info">礼拝堂（同志社京田辺会堂）</span>
+            </li>
+            <li data-no="30" data-name="光館" data-keywords="ひかりかん" data-x="53.3" data-y="71.0">
+              <span class="building-name"><span class="no">30</span>光館</span>
+              <span class="building-info">キリスト教文化センター（同志社京田辺会堂）</span>
+            </li>
+            <li data-no="31" data-name="香柏館" data-keywords="こうはくかん" data-x="51.0" data-y="62.3">
+              <span class="building-name"><span class="no">31</span>香柏館</span>
+              <span class="building-info">心理学部・研究科事務室、グローバル・コミュニケーション学部事務室</span>
+            </li>
+            <li data-no="32" data-name="ラーネッド記念図書館" data-keywords="らーねっどきねんとしょかん 本 勉強 自習" data-x="45.1" data-y="65.0">
+              <span class="building-name"><span class="no">32</span>ラーネッド記念図書館</span>
+              <span class="building-info">図書館、ラーニング・コモンズ</span>
+            </li>
+            <li data-no="33" data-name="頌真館" data-keywords="しょうしんかん パソコン PC 工事 通行止め" data-x="40.1" data-y="61.9">
+              <span class="building-name"><span class="no">33</span>頌真館</span>
+              <span class="building-info">情報教室</span>
+              <span class="tag warn">日糧館へは前の階段から空中通路で行ける</span>
+            </li>
+            <li data-no="34" data-name="恵道館" data-keywords="けいどうかん パソコン PC" data-x="48.9" data-y="60.9">
+              <span class="building-name"><span class="no">34</span>恵道館</span>
+              <span class="building-info">情報教室</span>
+            </li>
+            <li data-no="35" data-name="創考館" data-keywords="そうこうかん" data-x="53.4" data-y="56.9">
+              <span class="building-name"><span class="no">35</span>創考館</span>
+              <span class="building-info">共同実験棟</span>
+            </li>
+            <li data-no="36" data-name="理化学館" data-keywords="りかがくかん" data-x="52.8" data-y="50.2">
+              <span class="building-name"><span class="no">36</span>理化学館</span>
+              <span class="building-info">理工学部・研究科事務室</span>
+            </li>
+            <li data-no="37" data-name="報辰館" data-keywords="ほうしんかん" data-x="49.1" data-y="50.3">
+              <span class="building-name"><span class="no">37</span>報辰館</span>
+            </li>
+            <li data-no="38" data-name="香知館" data-keywords="こうちかん" data-x="52.1" data-y="42.5">
+              <span class="building-name"><span class="no">38</span>香知館</span>
+            </li>
+            <li data-no="39" data-name="有徳館東館" data-keywords="ゆうとくかん" data-x="57.5" data-y="55.0">
+              <span class="building-name"><span class="no">39</span>有徳館東館</span>
+            </li>
+            <li data-no="40" data-name="有徳館西館" data-keywords="ゆうとくかん" data-x="55.7" data-y="42.7">
+              <span class="building-name"><span class="no">40</span>有徳館西館</span>
+            </li>
+            <li data-no="41" data-name="知源館" data-keywords="ちげんかん" data-x="61.7" data-y="57.3">
+              <span class="building-name"><span class="no">41</span>知源館</span>
+            </li>
+            <li data-no="42" data-name="至心館" data-keywords="ししんかん" data-x="61.7" data-y="51.1">
+              <span class="building-name"><span class="no">42</span>至心館</span>
+            </li>
+            <li data-no="43" data-name="澄明館" data-keywords="ちょうめいかん" data-x="61.0" data-y="46.3">
+              <span class="building-name"><span class="no">43</span>澄明館</span>
+            </li>
+            <li data-no="44" data-name="医心館" data-keywords="いしんかん" data-x="59.6" data-y="33.6">
+              <span class="building-name"><span class="no">44</span>医心館</span>
+              <span class="building-info">生命医科学部・研究科事務室</span>
+            </li>
+            <li data-no="45" data-name="業成館（D-egg）" data-keywords="ぎょうせいかん" data-x="89.1" data-y="72.8">
+              <span class="building-name"><span class="no">45</span>業成館（D-egg）</span>
             </li>
           </ul>
         </section>
-
-      </div>
-
-      <div class="map-controls" aria-label="地図操作">
-        <button id="zi" type="button" aria-label="拡大">+</button>
-        <button id="zo" type="button" aria-label="縮小">−</button>
-        <button id="vw" type="button" aria-label="全体表示">↗↙</button>
-      </div>
-
-      <div class="blocked-wrap">
-        <button id="blocked" type="button" class="blocked-btn">
-          工事・通行止め
-        </button>
       </div>
     </main>
 
