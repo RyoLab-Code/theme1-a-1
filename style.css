@@ -93,3 +93,73 @@ button:focus-visible, input:focus-visible, .chip:focus-visible, .blocked-btn:foc
   border-color: #d5bc84;
   box-shadow: 0 0 0 3px rgba(213,188,132,.2);
 }
+
+/* ===== カラーチェンジ実験 ===== */
+
+:root {
+  --bg: #eaf3ff;
+  --bg-2: #d8eaff;
+  --paper: #ffffff;
+  --line: #9dbce0;
+  --ink: #142b49;
+  --muted: #506b8b;
+  --brand: #1456b8;
+  --brand-strong: #092e70;
+  --highlight: #cbe6ff;
+}
+
+body {
+  background: linear-gradient(135deg, #d8eaff, #ffffff);
+}
+
+.top-header {
+  background: linear-gradient(120deg, #071d49, #1264c8);
+  color: #ffffff;
+}
+
+.logo-box {
+  background: #2678db;
+  border-color: #8ecbff;
+}
+
+.search-wrap button {
+  background: #ffcc33;
+  color: #142b49;
+  border-color: #ffcc33;
+}
+
+.search-wrap button:hover {
+  background: #ffe17b;
+}
+
+.campus-image,
+.building-panel {
+  background: #ffffff;
+  border-color: #9dbce0;
+}
+
+.building-list li {
+  background: #f1f7ff;
+  border-color: #b8d3f2;
+}
+
+.building-list li:hover {
+  background: #dceeff;
+  border-color: #1456b8;
+}
+
+.building-list li.matched {
+  background: #cbe6ff;
+  border-color: #1456b8;
+}
+
+.no {
+  background: #1456b8;
+}
+
+.chip {
+  background: #e3f0ff;
+  color: #1456b8;
+  border-color: #9dbce0;
+}
+
