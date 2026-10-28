@@ -112,5 +112,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("blocked").addEventListener("click", () => search("工事"));
 
+  // ---- 地図の拡大・縮小（画像の幅を変えるだけ） ----
+  let zoom = 1;
+  const setZoom = (value) => {
+    zoom = Math.min(3, Math.max(1, value));
+    mapInner.style.width = `${zoom * 100}%`;
+    if (!marker.hidden) {
+      marker.scrollIntoView({ block: "nearest", inline: "center" });
+    }
+  };
+  document.getElementById("zi").addEventListener("click", () => setZoom(zoom + 0.5));
+  document.getElementById("zo").addEventListener("click", () => setZoom(zoom - 0.5));
+  document.getElementById("vw").addEventListener("click", () => {
+    setZoom(1);
+    mapScroll.scrollTo(0, 0);
+  });
+
   applyFilter();
 });
